@@ -89,12 +89,20 @@ class cobra_demo:
 
     def print_status(self, head_select, status_num):
         try:
-            status_name = statuses[status_num]
+            # Get the attribute name from the statuses map
+            attr_name = statuses[status_num]  # e.g., "status1"
             current_cobra = self.get_cobra_head(head_select)
-            self.run_print(current_cobra.status1())
-            return getattr(self, status_name)
+
+            # Get the method from current_cobra
+            status_method = getattr(current_cobra, attr_name)
+
+            # Call the method and pass its result to run_print
+            self.run_print(status_method())
+
         except KeyError:
-            raise ValueError(f"[ERROR] Unsupported head selection: STATUS{status_num}")
+            raise ValueError(f"[ERROR] Unsupported status number: {status_num}")
+        except AttributeError:
+            raise ValueError(f"[ERROR] Cobra head {head_select} does not have {attr_name}")
 
 
     def ip_set(self, ip_input):
