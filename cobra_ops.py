@@ -5,6 +5,7 @@ import multiprocessing as mp
 from datetime import datetime, date
 from sys import getsizeof
 from cc_head_port_mapping import head_to_attr, head_to_port_attr
+from cc_status_mapping import statuses
 
 
 class cobra_demo:
@@ -86,9 +87,15 @@ class cobra_demo:
         current_cobra = self.get_cobra_head(head_select)
         current_cobra.deactuate()
 
-    def print_status(self, head_select):
-        current_cobra = self.get_cobra_head(head_select)
-        self.run_print(current_cobra.status())
+    def print_status(self, head_select, status_num):
+        try:
+            status_name = statuses[status_num]
+            current_cobra = self.get_cobra_head(head_select)
+            self.run_print(current_cobra.status1())
+            return getattr(self, status_name())
+        except KeyError:
+            raise ValueError(f"[ERROR] Unsupported head selection: STATUS{status_num}")
+
 
     def ip_set(self, ip_input):
         self.ipaddr = ip_input

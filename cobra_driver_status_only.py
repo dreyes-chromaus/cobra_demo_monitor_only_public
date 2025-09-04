@@ -11,7 +11,7 @@ import paramiko  # For SSH connection errors
 
 #TODO: Need to find a way to remove cobra.ip_set() redundancies
 
-def repeat_status(ip_input, head_select, stop_event):
+def repeat_status(ip_input, head_select, status_num, stop_event):
     # Create independent cobra object in subprocess
     cobra = cobra_ops.cobra_demo()
     cobra.ip_set(ip_input)  # Set IP once
@@ -19,7 +19,7 @@ def repeat_status(ip_input, head_select, stop_event):
 
     while not stop_event.is_set():
         try:
-            cobra.print_status(head_select)
+            cobra.print_status(head_select, status_num)
         except (socket.error, paramiko.SSHException, Exception) as e:
             print(f"[ERROR] repeat_status: Communication lost - {e}")
             stop_event.set()
@@ -220,14 +220,16 @@ def main():
         print("[INFO] COBRA CONNECTION ESTABLISHED AT IP:{ip}".format(ip=cobra_ip))
         print("[INFO] STARTING TEST")
         # Launch change_rand_temp for each head
+        """
         for head in active_heads:
             p = Process(target=change_rand_temp, args=(cobra_ip, head, stop_event))
             processes.append(p)
+        """
 
         # Launch timing and memory monitor processes
         processes.append(Process(target=running, args=(stop_event,)))
-        processes.append(Process(target=change_tsd_gain_1, args=(cobra_ip, 1, stop_event)))
-        processes.append(Process(target=change_ss_target_50, args=(cobra_ip, 1, stop_event)))
+        #processes.append(Process(target=change_tsd_gain_1, args=(cobra_ip, 1, stop_event)))
+        #processes.append(Process(target=change_ss_target_50, args=(cobra_ip, 1, stop_event)))
         processes.append(Process(target=memory_monitor, args=(cobra_ip, stop_event, used_memory_log, free_memory_log, test_time_log)))
         processes.append(Process(target=memory_compare, args=(cobra_ip, stop_event, 13, cfree_memory_log)))
         processes.append(Process(target=log_file_monitor, args=(cobra_ip, stop_event)))
