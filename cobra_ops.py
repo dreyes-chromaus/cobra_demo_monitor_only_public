@@ -106,7 +106,7 @@ class cobra_demo:
             port_attr = head_to_port_attr[head_select]
             port_value = getattr(self, port_attr)
             setattr(self, attr_name, cobra_tcp_2025.cobra_thermal_system(self.ipaddr, port_value))
-            self.print_status(head_select)
+            self.print_status(head_select, 1)
         except KeyError:
             raise ValueError(f"[ERROR] Unsupported head selection: {head_select}")
 
