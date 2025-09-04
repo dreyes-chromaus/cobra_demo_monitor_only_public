@@ -92,7 +92,7 @@ class cobra_demo:
             status_name = statuses[status_num]
             current_cobra = self.get_cobra_head(head_select)
             self.run_print(current_cobra.status1())
-            return getattr(self, status_name())
+            return getattr(self, status_name)
         except KeyError:
             raise ValueError(f"[ERROR] Unsupported head selection: STATUS{status_num}")
 
