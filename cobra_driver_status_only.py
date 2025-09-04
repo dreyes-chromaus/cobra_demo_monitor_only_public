@@ -230,7 +230,7 @@ def main():
         processes.append(Process(target=running, args=(stop_event,)))
         #processes.append(Process(target=change_tsd_gain_1, args=(cobra_ip, 1, stop_event)))
         #processes.append(Process(target=change_ss_target_50, args=(cobra_ip, 1, stop_event)))
-        processes.append(Process(target=repeat_status, args=(cobra_ip, 1, 11, stop_event)))
+        processes.append(Process(target=repeat_status, args=(cobra_ip, 11, 1, stop_event)))
         processes.append(Process(target=memory_monitor, args=(cobra_ip, stop_event, used_memory_log, free_memory_log, test_time_log)))
         processes.append(Process(target=memory_compare, args=(cobra_ip, stop_event, 13, cfree_memory_log)))
         processes.append(Process(target=log_file_monitor, args=(cobra_ip, stop_event)))
