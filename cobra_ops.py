@@ -2,6 +2,7 @@ import cobra_tcp_2025
 #import telnetlib
 import time
 import multiprocessing as mp
+import re
 from datetime import datetime, date
 from sys import getsizeof
 from cc_head_port_mapping import head_to_attr, head_to_port_attr
@@ -127,9 +128,9 @@ class cobra_demo:
 
     def get_free_memory(self, head_select):
         current_cobra = self.get_cobra_head(head_select)
-        som_readback = current_cobra.som_status().split()
-        free_memory = som_readback[8]
-        return free_memory
+        som_readback = current_cobra.som_status()
+        match = re.search(r"\b\d+(\.\d+)?\b", som_readback)
+        return match.group(0) if match else "0.0"
 
     def run_print(self, input):
         print(datetime.utcnow().strftime('%F %T.%f')[:-3] + "\t" + input)
