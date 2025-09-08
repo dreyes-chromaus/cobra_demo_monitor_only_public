@@ -75,7 +75,7 @@ def change_ss_target_50(ip_input, head_select, stop_event):
 
     while not stop_event.is_set():
         try:
-            cobra.change_ss_target_50(1, 50)
+            cobra.change_ss_target_50(1, "50")
         except (socket.error, paramiko.SSHException, Exception) as e:
             print(f"[ERROR] change_ss_target: Communication lost - {e}")
             stop_event.set()
@@ -88,7 +88,7 @@ def change_tsd_gain_1(ip_input, head_select, stop_event):
 
     while not stop_event.is_set():
         try:
-            cobra.change_tsd_gain_1(1, 1)
+            cobra.change_tsd_gain_1(1, "1")
             cobra.change_tsd_gain_1(1)
         except (socket.error, paramiko.SSHException, Exception) as e:
             print(f"[ERROR] change_tsd_gain: Communication lost - {e}")
