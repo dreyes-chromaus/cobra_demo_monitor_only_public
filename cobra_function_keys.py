@@ -66,6 +66,6 @@ test_functions_port_2000 = {
 }
 
 test_functions_port_2100 = {
-    "port": 21,
+    "port": 20,
     "set_temp": round(random.uniform(25.1, 25.2), 3)
 }
