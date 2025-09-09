@@ -26,7 +26,9 @@ Thumbs.db
 /__pycache__/
 
 
+# Ignore specific files
 bash.exe.stackdump
 cobra_driver_status_only_dual_head.py
 cobra_driver_status_only_single_head.py
 status_test.py
+#test_loop_debug.py
