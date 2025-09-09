@@ -71,7 +71,7 @@ class cobra_demo:
     def run_commands(self, head_select, command_list):
         current_cobra = self.get_cobra_head(head_select)
         for command in command_list:
-            if command in functions:
+            if command in functions and command is not "Port":
                 cobra_feedback = getattr(current_cobra, command)(command_list[command])
                 if cobra_feedback is not "UNRECOGNIZED COMMAND":
                     print(cobra_feedback)

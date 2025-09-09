@@ -35,9 +35,37 @@ functions = {
     "tsd_gain",
 }
 
-test_functions = {
+test_functions_port_1111 = {
+    "port": 11,
     "status1": None,
     "ss_target": 50,
     "tsd_gain": 1,
+    "set_temp": round(random.uniform(25.1, 25.2), 3),
+    "actuate": None,
+    "deactuate": None,
+}
+
+test_functions_port_1000 = {
+    "port": 1,
+    "set_temp": round(random.uniform(25.1, 25.2), 3)
+}
+
+test_functions_port_1100 = {
+    "port": 10,
+    "set_temp": round(random.uniform(25.1, 25.2), 3)
+}
+
+test_functions_port_1112 = {
+    "port": 22,
+    "set_temp": round(random.uniform(25.1, 25.2), 3)
+}
+
+test_functions_port_2000 = {
+    "port": 2,
+    "set_temp": round(random.uniform(25.1, 25.2), 3)
+}
+
+test_functions_port_2100 = {
+    "port": 21,
     "set_temp": round(random.uniform(25.1, 25.2), 3)
 }

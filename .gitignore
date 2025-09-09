@@ -12,11 +12,21 @@ Thumbs.db
 # Ignore logs and temporary files
 *.log
 *.tmp
+*.txt
 
 # Ignore compiled binaries
 *.exe
 *.out
 *.dll
 
-# Ignore directories
-cobra-demo/
+# Ignore directory
+/cobra_demo
+/mem_logs
+/output
+/__pycache__/
+
+
+bash.exe.stackdump
+cobra_driver_status_only_dual_head.py
+cobra_driver_status_only_single_head.py
+status_test.py

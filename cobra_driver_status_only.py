@@ -8,7 +8,7 @@ from multiprocessing import Process, Event, Manager
 from datetime import datetime
 import socket
 import paramiko  # For SSH connection errors
-from cobra_function_keys import test_functions
+from cobra_function_keys import test_functions_port_1111, test_functions_port_1000, test_functions_port_1100, test_functions_port_1112, test_functions_port_2000, test_functions_port_2100
 
 #TODO: Need to find a way to remove cobra.ip_set() redundancies
 
@@ -115,14 +115,14 @@ def running(stop_event):
         print("Time elapsed: {:.2f}".format(time.time() - start_time))
         time.sleep(0.5)
 
-def test_loop(ip_input, head_select, stop_event):
+def test_loop(ip_input, test_functions, stop_event):
     cobra = cobra_ops.cobra_demo()
     cobra.ip_set(ip_input)
-    cobra.init_cobra(head_select)
+    cobra.init_cobra(test_functions["port"])
 
     while not stop_event.is_set():
         try:
-            cobra.run_commands(head_select, test_functions)
+            cobra.run_commands(test_functions["port"], test_functions)
         except (socket.error, paramiko.SSHException, Exception) as e:
             print(f"[ERROR] test_loop: Communication lost - {e}")
             stop_event.set()
@@ -218,10 +218,10 @@ def main():
     while head_selected is False:
         cobra_head = input("cobra_head: ")
         if cobra_head == '1':
-            active_heads = [1, 11, 10]
+            active_heads = [test_functions_port_1111, test_functions_port_1000, test_functions_port_1100] #TODO: convert to ports defined in function_keys
             head_selected = True
         elif cobra_head == '2':
-            active_heads = [2, 22, 20, 1, 11, 10]
+            active_heads = [test_functions_port_1112, test_functions_port_2000, test_functions_port_2100, test_functions_port_1111, test_functions_port_1000, test_functions_port_1100] #TODO: convert to ports define in function_keys
             head_selected = True
         else:
             print("Invalid cobra head number")
@@ -233,8 +233,8 @@ def main():
         print("[INFO] COBRA CONNECTION ESTABLISHED AT IP:{ip}".format(ip=cobra_ip))
         print("[INFO] STARTING TEST")
         # Launch change_rand_temp for each head
-        for head in active_heads:
-            p = Process(target=test_loop, args=(cobra_ip, head, stop_event))
+        for function_list in active_heads:
+            p = Process(target=test_loop, args=(cobra_ip, function_list, stop_event))
             processes.append(p)
 
         # Launch timing and memory monitor processes
