@@ -72,9 +72,12 @@ class cobra_demo:
         current_cobra = self.get_cobra_head(head_select)
         for command in command_list:
             if command in functions and command is not "Port":
-                cobra_feedback = getattr(current_cobra, command)(command_list[command])
-                if cobra_feedback is not "UNRECOGNIZED COMMAND":
-                    print(cobra_feedback)
+                if command_list[command] is not None:
+                    cobra_feedback = getattr(current_cobra, command)(command_list[command])
+                else:
+                    cobra_feedback = getattr(current_cobra, command)()
+                #if cobra_feedback is not "UNRECOGNIZED COMMAND":
+                print(cobra_feedback)
 
     def change_tsd_gain_1(self, head_select, gain=None):
         #self.init_cobra(head_select)
