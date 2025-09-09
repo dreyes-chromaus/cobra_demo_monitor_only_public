@@ -376,16 +376,14 @@ class cobra_thermal_system:
         return response
 
     def actuate(self):
-        self.main.read_very_eager()  # clear buffer
-        self.write('ACTUATE()')
-        response = self.main.read_until(b'OK)', 5)
-        return response.decode().strip()
+        #self.main.read_very_eager()  # clear buffer
+        response = self.ask('ACTUATE()')
+        return response
 
     def deactuate(self):
-        self.main.read_very_eager()  # clear buffer
-        self.write('UNACTUATE()')
-        response = self.main.read_until(b'OK)', 5)
-        return response.decode().strip()
+        #self.main.read_very_eager()  # clear buffer
+        response = self.ask('UNACTUATE()')
+        return response
 
     def set_force(self, force, index=0):
         '''
