@@ -36,6 +36,12 @@ functions = {
 }
 
 test_functions_port_1111 = {
+    "ss_target": 50,
+    "tsd_gain": 1,
+}
+
+'''
+test_functions_port_1111 = {
     "port": 11,
     "status1": None,
     "ss_target": 50,
@@ -44,6 +50,7 @@ test_functions_port_1111 = {
     "actuate": None,
     "deactuate": None,
 }
+'''
 
 test_functions_port_1000 = {
     "port": 1,

@@ -219,6 +219,7 @@ def main():
         cobra_head = input("cobra_head: ")
         if cobra_head == '1':
             active_heads = [test_functions_port_1111, test_functions_port_1000, test_functions_port_1100] #TODO: convert to ports defined in function_keys
+            active_heads = [test_functions_port_1111] #TODO: convert to ports defined in function_keys
             head_selected = True
         elif cobra_head == '2':
             active_heads = [test_functions_port_1112, test_functions_port_2000, test_functions_port_2100, test_functions_port_1111, test_functions_port_1000, test_functions_port_1100] #TODO: convert to ports define in function_keys
