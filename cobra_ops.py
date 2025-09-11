@@ -73,9 +73,11 @@ class cobra_demo:
         for command in command_list:
             if command in functions and command is not "Port":
                 if command_list[command] is not None:
-                    cobra_feedback = getattr(current_cobra, command)(command_list[command])
+                    cobra_feedback = getattr(current_cobra, command)(command_list[command][0])
+                    time.sleep(command_list[command][1])
                 else:
                     cobra_feedback = getattr(current_cobra, command)()
+                    time.sleep(command_list[command][1])
                 #if cobra_feedback is not "UNRECOGNIZED COMMAND":
                 print(cobra_feedback)
 

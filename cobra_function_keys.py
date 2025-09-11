@@ -37,8 +37,8 @@ functions = {
 
 test_functions_port_1111 = {
     "port": 11,
-    "ss_target": 50,
-    "tsd_gain": 1,
+    "actuate": [None, 15],
+    "deactuate": [None, 15]
 }
 
 '''
