@@ -34,24 +34,22 @@ functions = {
     "start_log",
     "tsd_gain",
 }
-
+'''
 test_functions_port_1111 = {
     "port": 11,
     "actuate": [None, 15],
     "deactuate": [None, 15]
-}
+}'''
 
-'''
 test_functions_port_1111 = {
     "port": 11,
-    "status1": None,
-    "ss_target": 50,
-    "tsd_gain": 1,
-    "set_temp": round(random.uniform(25.1, 25.2), 3),
-    "actuate": None,
-    "deactuate": None,
+    "status1": [None, 1],
+    "ss_target": [50, 1],
+    "tsd_gain": [1, 1],
+    "set_temp": [round(random.uniform(25.1, 25.2), 3), 1],
+    "actuate": [None, 20],
+    "deactuate": [None, 20]
 }
-'''
 
 test_functions_port_1000 = {
     "port": 1,
