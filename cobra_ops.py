@@ -136,7 +136,7 @@ class cobra_demo:
         current_cobra = self.get_cobra_head(head_select)
         som_readback = current_cobra.som_status()
         match = re.search(r"SOM Memory Available:\s*([\d.]+)", som_readback)
-        return match.group(0) if match else "0.0"
+        return float(match.group(1)) if match else "0.0"
 
     def run_print(self, input):
         print(datetime.utcnow().strftime('%F %T.%f')[:-3] + "\t" + input)
