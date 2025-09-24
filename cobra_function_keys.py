@@ -45,8 +45,10 @@ test_functions_port_1111 = {
     "port": 11,
     "status1": [None, 1],
     "ss_target": [50, 1],
-    "tsd_gain": [1, 1],
-    "feedback": ['CASE', 1],
+    "tsd_gain": [1.0282, 1],
+    "tsd_offset": [None, 1],
+    "feedback": ['TCASE', 1],
+    "feedback": ['TCASE', 1],
     "set_temp": [round(random.uniform(25.1, 25.2), 3), 1],
     "actuate": [None, 20],
     "deactuate": [None, 20]

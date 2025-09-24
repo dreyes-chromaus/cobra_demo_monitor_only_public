@@ -604,6 +604,13 @@ class cobra_thermal_system:
             response = self.ask('TSD GAIN()')
         return response
 
+    def tsd_offset(self, offset=None):
+        if offset is not None:
+            response = self.ask('TSD OFFSET({})'.format(offset))
+        else:
+            response = self.ask('TSD OFFSET')
+        return response
+
     def close_connection(self):
         self.sock.shutdown(socket.SHUT_RDWR)  # Disable both send and receive
         self.sock.close()
