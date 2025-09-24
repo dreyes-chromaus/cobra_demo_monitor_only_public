@@ -155,7 +155,7 @@ def memory_compare(ip_input, stop_event, head_select, fmem_log): #TODO: need to 
     while not stop_event.is_set():
         try:
             cobra_free = cobra.get_free_memory(head_select) # current format is KB
-            cobra_free = int(float(cobra_free) / 1000) # now MB format
+            cobra_free = cobra_free / 1000 # now MB format
             fmem_log.append(str(cobra_free))
             #delta_free = abs(som_free - cobra_free)
             #print("SOM\t\tCOBRA\t\tDELTA")
@@ -218,11 +218,11 @@ def main():
     while head_selected is False:
         cobra_head = input("cobra_head: ")
         if cobra_head == '1':
-            active_heads = [test_functions_port_1111, test_functions_port_1000, test_functions_port_1100] #TODO: convert to ports defined in function_keys
+            active_heads = [test_functions_port_1111] #TODO: convert to ports defined in function_keys
             active_heads = [test_functions_port_1111] #TODO: convert to ports defined in function_keys
             head_selected = True
         elif cobra_head == '2':
-            active_heads = [test_functions_port_1112, test_functions_port_2000, test_functions_port_2100, test_functions_port_1111, test_functions_port_1000, test_functions_port_1100] #TODO: convert to ports define in function_keys
+            active_heads = [test_functions_port_1112, test_functions_port_1111] #TODO: convert to ports define in function_keys
             head_selected = True
         else:
             print("Invalid cobra head number")

@@ -46,6 +46,7 @@ test_functions_port_1111 = {
     "status1": [None, 1],
     "ss_target": [50, 1],
     "tsd_gain": [1, 1],
+    "feedback": ['CASE', 1],
     "set_temp": [round(random.uniform(25.1, 25.2), 3), 1],
     "actuate": [None, 20],
     "deactuate": [None, 20]
@@ -63,7 +64,7 @@ test_functions_port_1100 = {
 
 test_functions_port_1112 = {
     "port": 22,
-    "set_temp": round(random.uniform(25.1, 25.2), 3)
+    "set_temp": [round(random.uniform(25.1, 25.2), 3), 1]
 }
 
 test_functions_port_2000 = {
