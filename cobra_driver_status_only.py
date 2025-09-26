@@ -1,5 +1,7 @@
 import csv
 import os
+import sys
+
 import cobra_ops
 import cobra_ssh
 import random
@@ -173,7 +175,7 @@ def memory_monitor(ip_input, stop_event, umem_log, fmem_log, time_log):
 
     while not stop_event.is_set():
         try:
-            _,used_memory,free_memory = som.mem_read_split()
+            total_memory,used_memory,free_memory = som.mem_read_split() # first return was not named correctly
             umem_log.append(used_memory)
             fmem_log.append(free_memory)
             time_log.append(datetime.now().strftime('%H:%M:%S'))
@@ -182,6 +184,22 @@ def memory_monitor(ip_input, stop_event, umem_log, fmem_log, time_log):
             stop_event.set()
         time.sleep(1)
     return umem_log, fmem_log
+
+def memory_monitor_stream(ip_input, stop_event, umem_log, fmem_log, time_log):
+    som = cobra_ssh.som_com(ip_input)
+
+    while not stop_event.is_set():
+        try:
+            total_memory, used_memory, free_memory = som.mem_read_split()
+            umem_log.append(used_memory)
+            fmem_log.append(free_memory)
+            time_log.append(datetime.now().strftime('%H:%M:%S'))
+            sys.stdout.write(f"\r[" + datetime.now().strftime('%H:%M:%S') + "] Physical Memory (Available: {free_memory} MB) (Used: {used_memory} MB)")
+        except (socket.error, paramiko.SSHException, Exception) as e:
+            print(f"[ERROR] memory_monitor: Communication lost - {e}")
+            stop_event.set()
+    return umem_log, fmem_log
+
 
 def store_to_csv(umem_log, fmem_log, cfmem_log, time_log, ip_input):
     print("[INFO] PRINTING DATA TO CSV")
