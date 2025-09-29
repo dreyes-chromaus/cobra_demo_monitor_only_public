@@ -111,7 +111,7 @@ class som_com:
         free = [output[2], output[9]]
         return free
 
-    def mem_read_split(self):
+    def mem_read_split_print(self):
         output = self.mem_read()
         output = output.split()
         #split output
@@ -121,6 +121,14 @@ class som_com:
 
         print(total[0] + '\t\t' + used[0] + '\t\t' + free[0])
         print(total[1] + 'MB\t\t' + used[1] + 'MB\t\t' + free[1] + 'MB')
+        return total[1], used[1], free[1]
+
+    def mem_read_split(self):
+        output = self.mem_read()
+        output = output.split()
+        total = [output[0], output[7]]
+        used = [output[1], output[8]]
+        free = [output[2], output[9]]
         return total[1], used[1], free[1]
 
 
