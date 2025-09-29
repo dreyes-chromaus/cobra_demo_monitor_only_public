@@ -185,18 +185,25 @@ def memory_monitor(ip_input, stop_event, umem_log, fmem_log, time_log):
         time.sleep(1)
     return umem_log, fmem_log
 
-def memory_monitor_stream(ip_input, stop_event, umem_log, fmem_log, time_log):
+def memory_monitor_stream(ip_input, stop_event, umem_log, fmem_log, cfmem_log, time_log):
     som = cobra_ssh.som_com(ip_input)
+    cobra = cobra_ops.cobra_demo()
+    cobra.ip_set(ip_input)
+    cobra.init_cobra(1) # don't need to pass head_select, can only get memory info from m1
 
     while not stop_event.is_set():
         try:
+            cobra_free = cobra.get_free_memory(1)
+            cobra_free = cobra_free / 1000
+            cfmem_log.append(str(cobra_free))
+
             total_memory, used_memory, free_memory = som.mem_read_split()
             umem_log.append(used_memory)
             fmem_log.append(free_memory)
             time_log.append(datetime.now().strftime('%H:%M:%S'))
             sys.stdout.write(
                 f"\r[{datetime.now().strftime('%H:%M:%S')}] "
-                f"Physical Memory (Available: {free_memory} MB) (Used: {used_memory} MB)"
+                f"Physical Memory (Available: {free_memory} MB) (Used: {used_memory} MB) Virtual Memory (Available: {cobra_free} MB)"
             )
             sys.stdout.flush()
         except (socket.error, paramiko.SSHException, Exception) as e:
