@@ -236,7 +236,7 @@ def main():
     while head_selected is False:
         cobra_head = input("cobra_head: ")
         if cobra_head == '1':
-            active_heads = [test_functions_port_1111] #TODO: convert to ports defined in function_keys
+            #active_heads = [test_functions_port_1111] #TODO: convert to ports defined in function_keys
             active_heads = [test_functions_port_1111] #TODO: convert to ports defined in function_keys
             head_selected = True
         elif cobra_head == '2':
@@ -252,10 +252,11 @@ def main():
         print("[INFO] COBRA CONNECTION ESTABLISHED AT IP:{ip}".format(ip=cobra_ip))
         print("[INFO] STARTING TEST")
         # Launch change_rand_temp for each head
+        '''
         for function_list in active_heads:
             p = Process(target=test_loop, args=(cobra_ip, function_list, stop_event))
             processes.append(p)
-
+        '''
         # Launch timing and memory monitor processes
         processes.append(Process(target=running, args=(stop_event,)))
         processes.append(Process(target=memory_monitor_stream, args=(cobra_ip, stop_event, used_memory_log, free_memory_log, test_time_log)))
