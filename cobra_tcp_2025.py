@@ -471,7 +471,7 @@ class cobra_thermal_system:
         obtains information about SOM
         '''
         response = self.ask('SOM STATUS()')
-        print(response)
+        #print(response)
         return response
 
     def gui_ip(self):
