@@ -175,7 +175,7 @@ def memory_monitor(ip_input, stop_event, umem_log, fmem_log, time_log):
 
     while not stop_event.is_set():
         try:
-            total_memory,used_memory,free_memory = som.mem_read_split() # first return was not named correctly
+            total_memory,used_memory,free_memory = som.mem_read_split_print() # first return was not named correctly
             umem_log.append(used_memory)
             fmem_log.append(free_memory)
             time_log.append(datetime.now().strftime('%H:%M:%S'))
