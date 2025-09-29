@@ -194,7 +194,11 @@ def memory_monitor_stream(ip_input, stop_event, umem_log, fmem_log, time_log):
             umem_log.append(used_memory)
             fmem_log.append(free_memory)
             time_log.append(datetime.now().strftime('%H:%M:%S'))
-            sys.stdout.write(f"\r[" + datetime.now().strftime('%H:%M:%S') + "] Physical Memory (Available: {free_memory} MB) (Used: {used_memory} MB)")
+            sys.stdout.write(
+                f"\r[{datetime.now().strftime('%H:%M:%S')}] "
+                f"Physical Memory (Available: {free_memory} MB) (Used: {used_memory} MB)"
+            )
+            sys.stdout.flush()
         except (socket.error, paramiko.SSHException, Exception) as e:
             print(f"[ERROR] memory_monitor: Communication lost - {e}")
             stop_event.set()
