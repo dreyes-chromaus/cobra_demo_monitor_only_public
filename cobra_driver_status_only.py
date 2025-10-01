@@ -203,7 +203,7 @@ def memory_monitor_stream(ip_input, stop_event, umem_log, fmem_log, cfmem_log, t
             time_log.append(datetime.now().strftime('%H:%M:%S'))
             sys.stdout.write(
                 f"\r[{datetime.now().strftime('%H:%M:%S')}] "
-                f"Physical Memory (Available: {free_memory} MB) (Used: {used_memory} MB) Virtual Memory (Available: {cobra_free} MB)"
+                f"PHYSICAL MEMORY (Available: {free_memory} MB) (Used: {used_memory} MB) VIRTUAL MEMORY (Available: {cobra_free} MB)"
             )
             sys.stdout.flush()
         except (socket.error, paramiko.SSHException, Exception) as e:
@@ -247,7 +247,6 @@ def main():
     while head_selected is False:
         cobra_head = input("cobra_head: ")
         if cobra_head == '1':
-            #active_heads = [test_functions_port_1111] #TODO: convert to ports defined in function_keys
             active_heads = [test_functions_port_1111] #TODO: convert to ports defined in function_keys
             head_selected = True
         elif cobra_head == '2':
@@ -263,19 +262,17 @@ def main():
         print("[INFO] COBRA CONNECTION ESTABLISHED AT IP:{ip}".format(ip=cobra_ip))
         print("[INFO] STARTING TEST")
         # Launch change_rand_temp for each head
-        '''
         for function_list in active_heads:
             p = Process(target=test_loop, args=(cobra_ip, function_list, stop_event))
             processes.append(p)
-        '''
         # Launch timing and memory monitor processes
-        #processes.append(Process(target=running, args=(stop_event,)))
-        processes.append(Process(target=memory_monitor_stream, args=(cobra_ip, stop_event, used_memory_log, free_memory_log, cfree_memory_log, test_time_log)))
+        processes.append(Process(target=running, args=(stop_event,)))
+        #processes.append(Process(target=memory_monitor_stream, args=(cobra_ip, stop_event, used_memory_log, free_memory_log, cfree_memory_log, test_time_log)))
         #processes.append(Process(target=change_tsd_gain_1, args=(cobra_ip, 13, stop_event)))
         #processes.append(Process(target=change_ss_target_50, args=(cobra_ip, 13, stop_event)))
-        #processes.append(Process(target=memory_monitor, args=(cobra_ip, stop_event, used_memory_log, free_memory_log, test_time_log)))
-        #processes.append(Process(target=memory_compare, args=(cobra_ip, stop_event, 13, cfree_memory_log)))
-        #processes.append(Process(target=log_file_monitor, args=(cobra_ip, stop_event)))
+        processes.append(Process(target=memory_monitor, args=(cobra_ip, stop_event, used_memory_log, free_memory_log, test_time_log)))
+        processes.append(Process(target=memory_compare, args=(cobra_ip, stop_event, 13, cfree_memory_log)))
+        processes.append(Process(target=log_file_monitor, args=(cobra_ip, stop_event)))
 
         # Start all processes
         for p in processes:
