@@ -38,7 +38,8 @@ class cobra_demo:
             self.cobram10.close_connection()
             return False
 
-
+    def get_ip_address(self):
+        return self.ipaddr
 
     def get_status1(self, head_select):
         current_cobra = self.get_cobra_head(head_select)
