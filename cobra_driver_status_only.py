@@ -270,7 +270,7 @@ def main():
             p = Process(target=test_loop, args=(cobra_ip, function_list, stop_event))
             processes.append(p)
         # Launch timing and memory monitor processes
-        processes.append(Process(target=running, args=(stop_event,)))
+        #processes.append(Process(target=running, args=(stop_event,)))
         processes.append(Process(target=memory_monitor_stream, args=(cobra_ip, stop_event, used_memory_log, free_memory_log, cfree_memory_log, test_time_log)))
         #processes.append(Process(target=change_tsd_gain_1, args=(cobra_ip, 13, stop_event)))
         #processes.append(Process(target=change_ss_target_50, args=(cobra_ip, 13, stop_event)))
